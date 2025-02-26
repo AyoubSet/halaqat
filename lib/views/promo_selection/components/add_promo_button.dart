@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/views/promo_selection/components/desciprion_field.dart';
+import 'package:halaqat/views/promo_selection/components/drag_handle.dart';
+import 'package:halaqat/views/promo_selection/components/name_field.dart';
+import 'package:halaqat/views/promo_selection/components/submit_new_promo_button.dart';
 
 class AddPromoButton extends StatelessWidget {
   const AddPromoButton({super.key});
@@ -31,7 +35,44 @@ class AddPromoButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20)),
                 padding: EdgeInsets.zero,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  elevation: 1,
+                  context: context,
+                  backgroundColor: Colors.white,
+                  builder: (context) => Padding(
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          DragHandle(),
+                          Container(
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 62, 92, 58),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                NameField(),
+                                SizedBox(height: 10),
+                                DesciprionField(),
+                                SizedBox(height: 20),
+                                SubmitNewPromoButton()
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
               child: Center(
                 child: Icon(
                   Icons.add,
