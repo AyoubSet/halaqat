@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class ListTileOfPromo extends StatelessWidget {
   final String title;
   final String? subtitle;
-  const ListTileOfPromo({super.key, required this.title, this.subtitle});
+  final Function onPressed;
+  final int index;
+  const ListTileOfPromo({super.key, required this.title, this.subtitle, required this.onPressed, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +18,11 @@ class ListTileOfPromo extends StatelessWidget {
       child: ListTile(
         title: Text(title),
         subtitle: Text(subtitle ?? ''),
-        
         trailing: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.more_vert),
+          onPressed: () {
+            onPressed(index);
+          },
+          icon: Icon(Icons.delete),
         ),
         titleTextStyle: TextStyle(
           fontWeight: FontWeight.bold,

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/state/form_state.dart';
+import 'package:provider/provider.dart';
 
-class DesciprionField extends StatelessWidget {
+class DesciprionField extends StatefulWidget {
   const DesciprionField({super.key});
+  @override
+  State<DesciprionField> createState() => _DesciprionFieldState();
+}
 
+class _DesciprionFieldState extends State<DesciprionField> { 
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,10 +26,15 @@ class DesciprionField extends StatelessWidget {
         SizedBox(
           height: 50,
           child: TextField(
+            onChanged: (value){
+              context.read<PromoFormState>().updateDescription(value);
+            },
+            controller: _controller,
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             ),
           ),
         ),
