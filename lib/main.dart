@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/state/form_state.dart';
-import 'package:halaqat/views/promo_selection/promo_selection.dart';
+import 'package:halaqat/presentation/pages/promo_selection_view.dart';
+import 'package:halaqat/presentation/state/form_state.dart';
 import 'package:provider/provider.dart';
-// Make sure this is correct
+
+//TODO : Add comments,Refactor the code with maximmum consts
+//FIXME : Nested Columms,flutter devtools
+// TODO : Check for controllers,check allocations
+//TODO: Separte
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => PromoFormState()), // ✅ Correct Provider Setup
+        ChangeNotifierProvider(create: (_) => PromoFormState()),
       ],
-      child: const MyApp(), // ✅ MyApp should be here
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PromoSelectionView(), // ✅ Ensure this widget is correctly implemented
+      home: SafeArea(
+        child: PromoSelectionView1(),
+      ),
     );
   }
 }
