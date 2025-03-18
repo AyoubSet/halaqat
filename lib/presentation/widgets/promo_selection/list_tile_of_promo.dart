@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/data/data_source/promos_service.dart';
-import 'package:halaqat/data/models/promo_db.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
 
 class ListTileOfPromo extends StatefulWidget {
@@ -19,7 +18,7 @@ class _ListTileOfPromoState extends State<ListTileOfPromo> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
         color: Colors.white.withOpacity(0.85),
       ),
       margin: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -42,16 +41,16 @@ class _ListTileOfPromoState extends State<ListTileOfPromo> {
                         }
                       });
                     },
-                    child: Text('Delete')),
+                    child: const Text('Delete')),
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cancel'))
+                    child: const Text('Cancel'))
               ],
             );
           },
-          icon: Icon(Icons.delete),
+          icon:const Icon(Icons.delete),
         ),
         titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,

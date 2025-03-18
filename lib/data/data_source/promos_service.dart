@@ -7,14 +7,12 @@ import 'package:halaqat/util/exceptions/crud_exceptions.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:developer' as dev show log;
-
-//*Classes
 class PromoService {
   //* Attributes
   Database? _db;
   List<DataBasePromo> _promos = [];
   late final StreamController<List<DataBasePromo>> _promosStreamController;
+
   //* Singleton
   static final PromoService _promoService = PromoService._init();
   PromoService._init(){
@@ -27,10 +25,10 @@ class PromoService {
   factory PromoService() {
     return _promoService;
   }
+
   //* Methodes
   Stream<List<DataBasePromo>> get allPromos => _promosStreamController.stream;
 
-  // bool get isEmpty => _promos.isEmpty;
   Future<void> ensureDbIsOpen() async {
     try {
       await open();

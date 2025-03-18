@@ -8,7 +8,7 @@ class DesciprionField extends StatefulWidget {
   State<DesciprionField> createState() => _DesciprionFieldState();
 }
 
-class _DesciprionFieldState extends State<DesciprionField> { 
+class _DesciprionFieldState extends State<DesciprionField> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class _DesciprionFieldState extends State<DesciprionField> {
       mainAxisSize: MainAxisSize.min, // Ensures it only takes needed height
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Description',
           style: TextStyle(
             color: Colors.white,
@@ -26,11 +26,16 @@ class _DesciprionFieldState extends State<DesciprionField> {
         SizedBox(
           height: 50,
           child: TextField(
-            onChanged: (value){
+            onChanged: (value) {
               context.read<PromoFormState>().updateDescription(value);
             },
             controller: _controller,
             decoration: InputDecoration(
+              focusedBorder: UnderlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(
+                    color: Colors.transparent), // Transparent instead of purple
+              ),
               filled: true,
               fillColor: Colors.white,
               border:

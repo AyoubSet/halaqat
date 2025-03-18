@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/data/data_source/promos_service.dart';
-import 'package:halaqat/data/models/promo_db.dart';
-import 'package:halaqat/presentation/widgets/promo_selection/add_promo_button.dart';
-import 'package:halaqat/presentation/widgets/promo_selection/list_tile_of_promo.dart';
+import 'package:halaqat/presentation/widgets/promo_selection/functions/active_status_generator.dart';
+import 'package:halaqat/presentation/widgets/promo_selection/waiting_status.dart';
+import 'package:halaqat/util/widgets/bg.dart';
+import 'package:halaqat/util/widgets/progress_indicator.dart';
 
 //TODO : Add comments here
-//TODO : Deplace the Set State to ListTile
-//FIXME : Use consts here
-
 class PromoSelectionView1 extends StatefulWidget {
   const PromoSelectionView1({super.key});
   @override
@@ -28,80 +26,37 @@ class _PromoSelectionViewState1 extends State<PromoSelectionView1> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 18, 50, 11),
-      body: FutureBuilder(
-        future: _promoService.getAllPromos(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return StreamBuilder<Object>(
-                  stream: _promoService.allPromos,
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return GestureDetector(
-                            onTap: () =>
-                                FocusManager.instance.primaryFocus?.unfocus(),
-                            child: Stack(children: [
-                              Center(
-                                  child: Text(
-                                'Loading Promos...',
-                                style: TextStyle(color: Colors.white),
-                              )),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: AddPromoButton(),
-                              ),
-                            ]));
-                      case ConnectionState.active:
-                        final allNotes = snapshot.data as List<DataBasePromo>;
-                        final Widget widgetToDisplay;
-                        if (snapshot.hasData) {
-                          if (allNotes.isNotEmpty) {
-                            widgetToDisplay = Center(
-                                child: SizedBox(
-                              height: screenHeight * 0.7,
-                              width: screenWidth * 0.9,
-                              child: ListView.builder(
-                                itemCount: allNotes.length,
-                                itemBuilder: (context, index) {
-                                  return ListTileOfPromo(
-                                    title: allNotes.elementAt(index).name,
-                                    subtitle:
-                                        allNotes.elementAt(index).descrption,
-                                    index: index,
-                                  );
-                                },
-                              ),
-                            ));
-                          } else {
-                            widgetToDisplay = Center(
-                                child: Text(
-                              'No Promo found,Add new....',
-                              style: TextStyle(color: Colors.white),
-                            ));
-                          }
-                        } else {
-                          widgetToDisplay = Text(
-                            'Error',
-                            style: TextStyle(color: Colors.white),
-                          );
+      body: Stack(
+        children: [
+          //* Bg Pattern
+          const Bg(),
+          //* The Selection Logic (Display Halaqat/Indicating messages)
+          FutureBuilder(
+            future: _promoService.getAllPromos(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  return StreamBuilder<Object>(
+                      stream: _promoService.allPromos,
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                            return const WaitingStatus();
+                          case ConnectionState.active:
+                            return activeStatusGenerator(
+                                snapshot: snapshot,
+                                screenHeight: screenHeight,
+                                screenWidth: screenWidth);
+                          default:
+                            return const PIndicator();
                         }
-                        return Stack(children: [
-                          widgetToDisplay,
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: AddPromoButton(),
-                          ),
-                        ]);
-                      default:
-                        return const CircularProgressIndicator();
-                    }
-                  });
-            default:
-              return const CircularProgressIndicator();
-          }
-        },
+                      });
+                default:
+                  return const PIndicator();
+              }
+            },
+          ),
+        ],
       ),
     );
   }

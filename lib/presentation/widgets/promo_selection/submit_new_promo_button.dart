@@ -1,11 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:halaqat/data/data_source/promos_service.dart';
+import 'package:halaqat/util/exceptions/crud_exceptions.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:halaqat/presentation/state/form_state.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
-
-//! dont need a fix
-//TODO : Add comments here
 
 class SubmitNewPromoButton extends StatefulWidget {
   const SubmitNewPromoButton({
@@ -52,24 +52,37 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
               ],
             );
           } else {
-            await _promoService.createPromo(
-                name: name, description: description);
-            Future.microtask(() {
-              if (context.mounted) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (mounted) {
-                    state.reset(notify: true);
-                  }
-                });
-                Navigator.of(context).pop();
-              }
-            });
+            try {
+              await _promoService.createPromo(
+                  name: name, description: description);
+            } on PromoAlreadyExistsException {
+              showADialog(context,
+                  title: "Promo Already Exists",
+                  content: "You have a promo with this name,try to change it",
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Ok")),
+                  ]);
+            } finally {
+              Future.microtask(() {
+                if (context.mounted) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (mounted) {
+                      state.reset(notify: true);
+                    }
+                  });
+                }
+              });
+            }
           }
         },
         child: Text(
           "Submit",
           style: TextStyle(
-            color: Color.fromARGB(255, 62, 92, 58),
+            color: const Color.fromARGB(255, 6, 66, 46),
           ),
         ),
       ),

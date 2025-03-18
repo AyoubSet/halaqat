@@ -6,13 +6,13 @@ class DragHandle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30,
+      height: 20,
       child: Center(
         child: Container(
           height: 4,
           width: 40,
           decoration: BoxDecoration(
-              color: Colors.black, borderRadius: BorderRadius.circular(20)),
+              color: Colors.black, borderRadius: const BorderRadius.all(Radius.circular(20))),
         ),
       ),
     );

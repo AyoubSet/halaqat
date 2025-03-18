@@ -1,8 +1,10 @@
 class Promo {
+  //*Attributes
   final String namePromo;
   final String? descriptionPromo;
-  Promo({required this.namePromo, this.descriptionPromo});
 
+  //*Constructer
+  Promo({required this.namePromo, this.descriptionPromo});
   String get name => namePromo;
   String get description => descriptionPromo ?? '';
 }
