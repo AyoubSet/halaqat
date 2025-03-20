@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:halaqat/data/data_source/promos_service.dart';
+import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/exceptions/crud_exceptions.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,10 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Ok'))
+                    child: Text(
+                      "Ok",
+                      style: TextStyle(color: mainColor),
+                    ))
               ],
             );
           } else {
@@ -64,7 +68,10 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Ok")),
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(color: mainColor),
+                        )),
                   ]);
             } finally {
               Future.microtask(() {
@@ -82,7 +89,7 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
         child: Text(
           "Submit",
           style: TextStyle(
-            color: const Color.fromARGB(255, 6, 66, 46),
+            color: mainColor,
           ),
         ),
       ),

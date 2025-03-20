@@ -5,7 +5,6 @@ import 'package:halaqat/presentation/widgets/promo_selection/waiting_status.dart
 import 'package:halaqat/util/widgets/bg.dart';
 import 'package:halaqat/util/widgets/progress_indicator.dart';
 
-//TODO : Add comments here
 class PromoSelectionView1 extends StatefulWidget {
   const PromoSelectionView1({super.key});
   @override

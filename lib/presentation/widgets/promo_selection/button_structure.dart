@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/presentation/widgets/promo_selection/functions/add_button_onpressed.dart';
+import 'package:halaqat/util/constants/colors.dart';
 
 class ButtonStructure extends StatefulWidget {
   const ButtonStructure({super.key});
@@ -22,7 +23,7 @@ class _ButtonStructureState extends State<ButtonStructure> {
           child: Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                iconColor: const Color.fromARGB(255, 3, 36, 25),
+                iconColor: mainColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 padding: EdgeInsets.zero,

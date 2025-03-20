@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/util/constants/colors.dart';
 
 class Bg extends StatelessWidget {
   const Bg({super.key});
@@ -8,7 +9,7 @@ class Bg extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          color: const Color.fromARGB(255, 3, 36, 25),
+          color: mainColor,
         ),
         Positioned.fill(
           child: Opacity(

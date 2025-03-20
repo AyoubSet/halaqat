@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/data/data_source/promos_service.dart';
+import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
 
 class ListTileOfPromo extends StatefulWidget {
@@ -7,7 +8,10 @@ class ListTileOfPromo extends StatefulWidget {
   final String subtitle;
   final int index;
   const ListTileOfPromo(
-      {super.key, required this.title, required this.subtitle, required this.index});
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.index});
 
   @override
   State<ListTileOfPromo> createState() => _ListTileOfPromoState();
@@ -34,23 +38,33 @@ class _ListTileOfPromoState extends State<ListTileOfPromo> {
               actions: [
                 TextButton(
                     onPressed: () async {
-                      await PromoService().deletePromo(id: (await PromoService().getPromoByName(name: widget.title)).id);
+                      await PromoService().deletePromo(
+                          id: (await PromoService()
+                                  .getPromoByName(name: widget.title))
+                              .id);
                       Future.microtask(() {
                         if (context.mounted) {
                           Navigator.of(context).pop();
                         }
                       });
                     },
-                    child: const Text('Delete')),
+                    child: const Text(
+                      'Delete',
+                      style: TextStyle(color: mainColor),
+                    )),
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Cancel'))
+                    child: const Text('Cancel',
+                        style: TextStyle(color: mainColor)))
               ],
             );
           },
-          icon:const Icon(Icons.delete),
+          icon: Icon(
+            Icons.delete,
+            color: Colors.red.withOpacity(0.8),
+          ),
         ),
         titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,

@@ -3,10 +3,6 @@ import 'package:halaqat/presentation/pages/promo_selection_view.dart';
 import 'package:halaqat/presentation/state/form_state.dart';
 import 'package:provider/provider.dart';
 
-//TODO : Add comments,Refactor the code with maximmum consts
-//FIXME : Nested Columms,flutter devtools
-// TODO : Check for controllers,check allocations
-//TODO: Separte
 
 void main() {
   runApp(
