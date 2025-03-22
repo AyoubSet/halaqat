@@ -11,6 +11,7 @@ class PromoService {
   //* Attributes
   Database? _db;
   List<DataBasePromo> _promos = [];
+  DataBasePromo? currentPromo ;
   late final StreamController<List<DataBasePromo>> _promosStreamController;
 
   //* Singleton
