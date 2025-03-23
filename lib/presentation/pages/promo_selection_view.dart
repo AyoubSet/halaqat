@@ -25,37 +25,40 @@ class _PromoSelectionViewState1 extends State<PromoSelectionView1> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          //* Bg Pattern
-          const Bg(),
-          //* The Selection Logic (Display Halaqat/Indicating messages)
-          FutureBuilder(
-            future: _promoService.getAllPromos(),
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  return StreamBuilder<Object>(
-                      stream: _promoService.allPromos,
-                      builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return const WaitingStatus();
-                          case ConnectionState.active:
-                            return activeStatusGenerator(
-                                snapshot: snapshot,
-                                screenHeight: screenHeight,
-                                screenWidth: screenWidth);
-                          default:
-                            return const PIndicator();
-                        }
-                      });
-                default:
-                  return const PIndicator();
-              }
-            },
-          ),
-        ],
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Stack(
+          children: [
+            //* Bg Pattern
+            const Bg(),
+            //* The Selection Logic (Display Halaqat/Indicating messages)
+            FutureBuilder(
+              future: _promoService.getAllPromos(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    return StreamBuilder<Object>(
+                        stream: _promoService.allPromos,
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return const WaitingStatus();
+                            case ConnectionState.active:
+                              return activeStatusGenerator(
+                                  snapshot: snapshot,
+                                  screenHeight: screenHeight,
+                                  screenWidth: screenWidth);
+                            default:
+                              return const PIndicator();
+                          }
+                        });
+                  default:
+                    return const PIndicator();
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

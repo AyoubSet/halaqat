@@ -84,7 +84,9 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
                 }
               });
             }
+
           }
+          Navigator.pop(context);
         },
         child: Text(
           "Submit",

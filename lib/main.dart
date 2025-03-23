@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/data/data_source/promos_service.dart';
 import 'package:halaqat/presentation/pages/promo_selection_view.dart';
 import 'package:halaqat/presentation/pages/promo_view.dart';
 import 'package:halaqat/presentation/state/form_state.dart';
@@ -29,8 +30,8 @@ class MyApp extends StatelessWidget {
         promo : (context) => PromoView()
       },
       debugShowCheckedModeBanner: false,
-      home: const SafeArea(
-        child: PromoSelectionView1(),
+      home: SafeArea(
+        child: PromoService().currentPromo == null ? PromoSelectionView1() : PromoView(),
       ),
     );
   }

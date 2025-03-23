@@ -3,7 +3,6 @@ import 'package:halaqat/data/data_source/promos_service.dart';
 import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/constants/routes.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
-import 'dart:developer' as dev show log;
 class ListTileOfPromo extends StatefulWidget {
   final String title;
   final String subtitle;
@@ -29,7 +28,6 @@ class _ListTileOfPromoState extends State<ListTileOfPromo> {
         PromoService().currentPromo =
             await PromoService().getPromoByName(name: title);
         Future.delayed(Duration(microseconds: 10));
-        dev.log(PromoService().currentPromo.toString());
         // ignore: use_build_context_synchronously
         Navigator.popAndPushNamed(context, promo);
       },

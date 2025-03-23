@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/presentation/widgets/promo_selection/add_promo_button.dart';
+import 'package:halaqat/util/widgets/add_button.dart';
 
 class WaitingStatus extends StatelessWidget {
   const WaitingStatus({super.key});
@@ -14,7 +14,10 @@ class WaitingStatus extends StatelessWidget {
       )),
       Align(
         alignment: Alignment.bottomRight,
-        child: AddPromoButton(),
+        child: AddButton(
+          margin: EdgeInsets.fromLTRB(0, 0, 20, 20),
+          message: "Add Promo",
+        ),
       ),
     ]);
   }
