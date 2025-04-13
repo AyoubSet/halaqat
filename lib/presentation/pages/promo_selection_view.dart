@@ -45,6 +45,7 @@ class _PromoSelectionViewState1 extends State<PromoSelectionView1> {
                               return const WaitingStatus();
                             case ConnectionState.active:
                               return activeStatusGenerator(
+                                  context: context,
                                   snapshot: snapshot,
                                   screenHeight: screenHeight,
                                   screenWidth: screenWidth);

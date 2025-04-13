@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/util/widgets/add_button.dart';
+import 'package:halaqat/util/constants/routes.dart';
+import 'package:halaqat/util/widgets/square_iconed_button.dart';
 
 class StudentPage extends StatefulWidget {
   const StudentPage({super.key});
@@ -26,13 +27,19 @@ class _StudentPageState extends State<StudentPage> {
           Align(
             alignment: Alignment.bottomRight,
             //TODO: Add custom onPress
-            child: AddButton(
+            child: SquareIconedButton(
               margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
               message: "Add Student",
+              onPress: () => pushForm(context),
+              child: Icon(Icons.add),
             ),
           ),
         ])),
       ),
     );
   }
+}
+
+void pushForm(BuildContext context) {
+  Navigator.pushNamedAndRemoveUntil(context, studentForm, (route) => false);
 }

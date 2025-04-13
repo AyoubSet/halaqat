@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/util/widgets/add_button.dart';
+import 'package:halaqat/util/widgets/square_iconed_button.dart';
 
 class HalaqatPage extends StatefulWidget {
   const HalaqatPage({super.key});
@@ -26,9 +26,10 @@ class _HalaqatPageState extends State<HalaqatPage> {
           Align(
             alignment: Alignment.bottomRight,
             //TODO: Add custom onPress
-            child: AddButton(
+            child: SquareIconedButton(
               margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
               message: "Add Student",
+              onPress: () {}, child: Icon(Icons.add),
             ),
           ),
         ])),

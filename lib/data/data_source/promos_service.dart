@@ -1,15 +1,11 @@
 //* Imports
-
+import 'package:halaqat/util/constants/DB/db_helper.dart';
 import 'dart:async';
 import 'package:halaqat/data/models/promo_db.dart';
-import 'package:halaqat/util/constants/db.dart';
+import 'package:halaqat/util/constants/DB/promo_db.dart';
 import 'package:halaqat/util/exceptions/crud_exceptions.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 class PromoService {
   //* Attributes
-  Database? _db;
   List<DataBasePromo> _promos = [];
   DataBasePromo? currentPromo;
   late final StreamController<List<DataBasePromo>> _promosStreamController;
@@ -30,52 +26,16 @@ class PromoService {
   //* Methodes
   Stream<List<DataBasePromo>> get allPromos => _promosStreamController.stream;
 
-  Future<void> ensureDbIsOpen() async {
-    try {
-      await open();
-    } on DBAlreadyOpenedException catch (_) {}
+  Future<void> updateSelectedPromo({required String name}) async{
+    currentPromo = await getPromoByName(name: name);
   }
-
-  Future<void> open() async {
-    if (_db != null) throw DBAlreadyOpenedException();
-    try {
-      final docsPath = await getApplicationDocumentsDirectory();
-      final dbPath = join(docsPath.path, dbName);
-      final db = await openDatabase(dbPath);
-      _db = db;
-      await db.execute(promoTable);
-      await _cachePromos();
-    } on MissingPlatformDirectoryException {
-      throw UnableToGetDocumentsDirectoryException();
-    }
-  }
-
-  Future<void> close() async {
-    final db = _db;
-    if (db == null) {
-      throw DBAlreadyClosedException();
-    } else {
-      await db.close();
-      _db = null;
-    }
-  }
-
-  Database _getDatabaseOrThrow() {
-    final db = _db;
-    if (db == null) {
-      throw DataBaseIsNotOpenException();
-    } else {
-      return db;
-    }
-  }
-
   Future<void> deletePromo({
     required int id,
   }) async {
-    await ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
     final deletedCount = await db.delete(
-      promoNameTable,
+      PromoDb.promoNameTable,
       where: "ID = ?",
       whereArgs: [id],
     );
@@ -93,10 +53,10 @@ class PromoService {
   Future<void> deletePromoByName({
     required String name,
   }) async {
-    await ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
     final deletedCount = await db.delete(
-      promoNameTable,
+      PromoDb.promoNameTable,
       where: "Name = ?",
       whereArgs: [name],
     );
@@ -114,10 +74,10 @@ class PromoService {
   
   Future<DataBasePromo> createPromo(
       {required String name, required String description}) async {
-    await ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
     final results = await db.query(
-      promoNameTable,
+      PromoDb.promoNameTable,
       limit: 1,
       where: "Name = ?",
       whereArgs: [name],
@@ -125,9 +85,9 @@ class PromoService {
     if (results.isNotEmpty) {
       throw PromoAlreadyExistsException();
     }
-    final userId = await db.insert(promoNameTable, {
-      nameColumm: name, 
-      descriptionColumn: description, 
+    final userId = await db.insert(PromoDb.promoNameTable, {
+      PromoDb.nameColumm: name, 
+      PromoDb.descriptionColumn: description, 
     });
     final newPromo = DataBasePromo(
       id: userId,
@@ -141,10 +101,10 @@ class PromoService {
   }
 
   Future<DataBasePromo> getPromoByID({required int id}) async {
-    await ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
     final results = await db
-        .query(promoNameTable, limit: 1, where: "ID = ?", whereArgs: [id]);
+        .query(PromoDb.promoNameTable, limit: 1, where: "ID = ?", whereArgs: [id]);
     if (results.isEmpty) {
       throw PromoDoesntExistsException();
     } else {
@@ -157,10 +117,10 @@ class PromoService {
   }
 
   Future<DataBasePromo> getPromoByName({required String name}) async {
-    await ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
     final results = await db
-        .query(promoNameTable, limit: 1, where: "Name = ?", whereArgs: [name]);
+        .query(PromoDb.promoNameTable, limit: 1, where: "Name = ?", whereArgs: [name]);
     if (results.isEmpty) {
       throw PromoDoesntExistsException();
     } else {
@@ -173,15 +133,15 @@ class PromoService {
   }
 
   Future<Iterable<DataBasePromo>> getAllPromos() async {
-    await ensureDbIsOpen();
-    final db = _getDatabaseOrThrow();
-    final promos = await db.query(promoNameTable);
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
+    final promos = await db.query(PromoDb.promoNameTable);
     return promos.map((n) => DataBasePromo.fromRow(n));
   }
 
-  Future<void> _cachePromos() async {
-    final allNotes = await getAllPromos();
-    _promos = allNotes.toList();
+  Future<void> cachePromos() async {
+    final allPromos = await getAllPromos();
+    _promos = allPromos.toList();
     _promosStreamController.add(_promos);
   }
 }

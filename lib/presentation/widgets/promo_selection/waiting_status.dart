@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/util/widgets/add_button.dart';
+import 'package:halaqat/presentation/widgets/promo_selection/functions/add_promo.dart';
+import 'package:halaqat/util/widgets/square_iconed_button.dart';
 
 class WaitingStatus extends StatelessWidget {
   const WaitingStatus({super.key});
@@ -14,9 +15,11 @@ class WaitingStatus extends StatelessWidget {
       )),
       Align(
         alignment: Alignment.bottomRight,
-        child: AddButton(
+        child: SquareIconedButton(
           margin: EdgeInsets.fromLTRB(0, 0, 20, 20),
           message: "Add Promo",
+          onPress: () => addPromo(context),
+          child: Icon(Icons.add),
         ),
       ),
     ]);

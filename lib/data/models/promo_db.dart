@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/util/constants/db.dart';
+import 'package:halaqat/util/constants/DB/promo_db.dart';
 
 @immutable
 class DataBasePromo {
@@ -16,9 +16,9 @@ class DataBasePromo {
     required this.descrption,
   });
   DataBasePromo.fromRow(Map<String, Object?> map)
-      : id = map[idColumm] as int,
-        name = map[nameColumm] as String,
-        descrption = map[descriptionColumn] as String;
+      : id = map[PromoDb.idColumm] as int,
+        name = map[PromoDb.nameColumm] as String,
+        descrption = map[PromoDb.descriptionColumn] as String;
 
   //*Overrides
   @override

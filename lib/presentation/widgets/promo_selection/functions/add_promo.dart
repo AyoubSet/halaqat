@@ -5,12 +5,11 @@ import 'package:halaqat/presentation/widgets/promo_selection/name_field.dart';
 import 'package:halaqat/presentation/widgets/promo_selection/submit_new_promo_button.dart';
 import 'package:halaqat/util/widgets/bg.dart';
 
-void addButtonOnPressed(BuildContext context) {
+void addPromo(BuildContext context) {
   showModalBottomSheet(
     isScrollControlled: true,
     elevation: 1,
     context: context,
-    // backgroundColor: Colors.white,
     builder: (context) => Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,

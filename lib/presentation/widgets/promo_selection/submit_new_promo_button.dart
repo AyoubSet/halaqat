@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:halaqat/data/data_source/promos_service.dart';
+import 'package:halaqat/data/models/promo_db.dart';
 import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/exceptions/crud_exceptions.dart';
 import 'package:provider/provider.dart';
@@ -56,11 +57,14 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
               ],
             );
           } else {
+            bool done = false;
+            DataBasePromo? createdPromo;
             try {
-              await _promoService.createPromo(
+              createdPromo = await _promoService.createPromo(
                   name: name, description: description);
+              done = true;
             } on PromoAlreadyExistsException {
-              showADialog(context,
+              await showADialog(context,
                   title: "Promo Already Exists",
                   content: "You have a promo with this name,try to change it",
                   actions: [
@@ -83,10 +87,17 @@ class _SubmitNewPromoButtonState extends State<SubmitNewPromoButton> {
                   });
                 }
               });
+              Navigator.pop(context);
+              if(done){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${createdPromo?.name} Promo is created!'),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+              }
             }
-
           }
-          Navigator.pop(context);
         },
         child: Text(
           "Submit",

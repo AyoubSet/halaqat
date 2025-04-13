@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/data/models/promo_db.dart';
-import 'package:halaqat/util/widgets/add_button.dart';
+import 'package:halaqat/presentation/widgets/promo_selection/functions/add_promo.dart';
+import 'package:halaqat/util/widgets/square_iconed_button.dart';
 import 'package:halaqat/presentation/widgets/promo_selection/list_tile_of_promo.dart';
+
 
 Widget activeStatusGenerator({
   required AsyncSnapshot snapshot,
   required double screenHeight,
   required double screenWidth,
+  required BuildContext context
 }) {
   final allNotes = snapshot.data as List<DataBasePromo>;
   final Widget widgetToDisplay;
@@ -44,9 +47,9 @@ Widget activeStatusGenerator({
     widgetToDisplay,
     Align(
       alignment: Alignment.bottomRight,
-      child: AddButton(
+      child: SquareIconedButton(onPress: () => addPromo(context),
         margin: EdgeInsets.fromLTRB(0, 0, 20, 20),
-        message: "Add Promo",
+        message: "Add Promo", child: Icon(Icons.add),
       ),
     ),
   ]);

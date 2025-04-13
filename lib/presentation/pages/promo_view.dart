@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/presentation/pages/halaqat_page.dart';
 import 'package:halaqat/presentation/pages/home_page.dart';
+import 'package:halaqat/presentation/pages/other_page.dart';
 import 'package:halaqat/presentation/pages/student_page.dart';
 import 'package:halaqat/presentation/state/index_nav_bar_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/bottom_nav_bar.dart';
@@ -31,7 +32,7 @@ class _PromoViewState extends State<PromoView> {
                     HalaqatPage(),
                     HomePage(),
                     Center(child: Text("4")),
-                    Center(child: Text("5")),
+                    OtherPage(),
                   ],
                 ),
               ),

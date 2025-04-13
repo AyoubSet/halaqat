@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:halaqat/data/data_source/promos_service.dart';
+import 'package:halaqat/data/local/shared_prefs_service.dart';
 import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/constants/routes.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
+
 class ListTileOfPromo extends StatefulWidget {
   final String title;
   final String subtitle;
@@ -27,8 +31,9 @@ class _ListTileOfPromoState extends State<ListTileOfPromo> {
       onTap: () async {
         PromoService().currentPromo =
             await PromoService().getPromoByName(name: title);
+        await SharedPrefsService()
+            .saveSelectedPromo(PromoService().currentPromo!.id);
         Future.delayed(Duration(microseconds: 10));
-        // ignore: use_build_context_synchronously
         Navigator.popAndPushNamed(context, promo);
       },
       child: Container(
@@ -49,15 +54,22 @@ class _ListTileOfPromoState extends State<ListTileOfPromo> {
                 actions: [
                   TextButton(
                       onPressed: () async {
+                        final deletedPromoName = widget.title;
                         await PromoService().deletePromo(
                             id: (await PromoService()
-                                    .getPromoByName(name: widget.title))
+                                    .getPromoByName(name: deletedPromoName))
                                 .id);
                         Future.microtask(() {
                           if (context.mounted) {
                             Navigator.of(context).pop();
                           }
                         });
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            elevation: 0,
+                            dismissDirection: DismissDirection.down,
+                            duration: Duration(seconds: 1),
+                            content:
+                                Text("$deletedPromoName promo is deleted")));
                       },
                       child: const Text(
                         'Delete',
