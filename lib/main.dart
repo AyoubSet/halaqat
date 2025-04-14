@@ -3,7 +3,7 @@ import 'package:halaqat/data/data_source/promos_service.dart';
 import 'package:halaqat/data/local/shared_prefs_service.dart';
 import 'package:halaqat/presentation/pages/promo_selection_view.dart';
 import 'package:halaqat/presentation/pages/promo_view.dart';
-import 'package:halaqat/presentation/pages/student_form.dart';
+import 'package:halaqat/presentation/pages/student_form_page.dart';
 import 'package:halaqat/presentation/state/form_state.dart';
 import 'package:halaqat/presentation/state/index_nav_bar_state.dart';
 import 'package:halaqat/util/widgets/progress_indicator.dart';
