@@ -25,7 +25,6 @@ class _HalaqatPageState extends State<HalaqatPage> {
           )),
           Align(
             alignment: Alignment.bottomRight,
-            //TODO: Add custom onPress
             child: SquareIconedButton(
               margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
               message: "Add Student",

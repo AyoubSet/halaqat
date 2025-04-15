@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       routes: {
         promoSelection : (context)=>PromoSelectionView1(),
         promo : (context)=>PromoView(),
-        studentForm : (context)=>StudentForm()
+        studentForm : (context)=>StudentFormPage()
       },
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(

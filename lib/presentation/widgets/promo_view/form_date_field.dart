@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/presentation/widgets/promo_view/field_decoration.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -7,13 +8,13 @@ class FormDateField extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final double width;
-  final double height;
-  const FormDateField(
+  double? height;
+  FormDateField(
       {super.key,
       required this.label,
       required this.controller,
       required this.width,
-      required this.height});
+      this.height});
 
   @override
   State<FormDateField> createState() => _FormDateFieldState();
@@ -48,11 +49,10 @@ class _FormDateFieldState extends State<FormDateField> {
           }
         },
         inputFormatters: [mask],
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          labelText: 'Date (YYYY-MM-DD)',
-        ),
+        decoration: customInputDecoration(label: widget.label,c: BoxConstraints(
+          maxHeight: widget.height ?? 50,
+           maxWidth: widget.width
+       ),),
       ),
     );
   }
