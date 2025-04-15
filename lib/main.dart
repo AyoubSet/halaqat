@@ -4,13 +4,16 @@ import 'package:halaqat/data/local/shared_prefs_service.dart';
 import 'package:halaqat/presentation/pages/promo_selection_view.dart';
 import 'package:halaqat/presentation/pages/promo_view.dart';
 import 'package:halaqat/presentation/pages/student_form_page.dart';
-import 'package:halaqat/presentation/state/form_state.dart';
+import 'package:halaqat/presentation/state/promo_form_state.dart';
 import 'package:halaqat/presentation/state/index_nav_bar_state.dart';
+import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/util/widgets/progress_indicator.dart';
 import 'package:halaqat/util/constants/routes.dart';
 import 'package:provider/provider.dart';
 
-//TODO: Form of creating student
+//TODO : Student Service
+
+//TODO : Displaying Students
 
 
 Future<void> loadSelectedPromo()async{
@@ -28,6 +31,7 @@ void main() async{
       providers: [
         ChangeNotifierProvider(create: (_) => PromoFormState()),
         ChangeNotifierProvider(create: (_) => IndexNavBarState()),
+        ChangeNotifierProvider(create: (_) => StudentFormState()),
       ],
       child: const MyApp(),
     ),

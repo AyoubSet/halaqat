@@ -6,7 +6,7 @@ import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/exceptions/crud_exceptions.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:halaqat/presentation/state/form_state.dart';
+import 'package:halaqat/presentation/state/promo_form_state.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
 
 class SubmitNewPromoButton extends StatefulWidget {

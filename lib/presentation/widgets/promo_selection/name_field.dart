@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:halaqat/presentation/state/form_state.dart';
+import 'package:halaqat/presentation/state/promo_form_state.dart';
 
 class NameField extends StatefulWidget {
   const NameField({super.key});

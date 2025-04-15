@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/presentation/state/form_state.dart';
+import 'package:halaqat/presentation/state/promo_form_state.dart';
 import 'package:provider/provider.dart';
 
 class DesciprionField extends StatefulWidget {

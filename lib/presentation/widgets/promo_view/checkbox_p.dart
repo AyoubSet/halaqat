@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/util/constants/colors.dart';
+import 'package:provider/provider.dart';
 
 class CheckboxP extends StatefulWidget {
   final String label;
@@ -22,6 +24,7 @@ class _CheckboxPState extends State<CheckboxP> {
               setState(() {
                 isChecked = newValue!;
               });
+              context.read<StudentFormState>().updateHasPayed(isChecked);
             }),
         Text(widget.label)
       ],

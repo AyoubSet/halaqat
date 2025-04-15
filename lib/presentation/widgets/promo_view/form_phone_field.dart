@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/field_decoration.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class FormPhoneField extends StatefulWidget {
   double? height;
   final double width;
@@ -20,17 +23,11 @@ class _FormPhoneFieldState extends State<FormPhoneField> {
           maxHeight: widget.height ?? 50,
            maxWidth: widget.width
        ),),
-      // InputDecoration(
-      //   constraints: BoxConstraints(
-      //     maxHeight: widget.height ?? 50,
-      //     maxWidth: widget.width
-      //   ),
-      //   filled: true,
-      //   fillColor: Colors.white.withOpacity(0.75),
-      //   labelText: widget.label
-      // ),
       controller: widget.phone,
       keyboardType: TextInputType.phone,
+      onChanged: (value) {
+        context.read<StudentFormState>().updateParentPhoneNumber(value);
+      },
     );
   }
 }

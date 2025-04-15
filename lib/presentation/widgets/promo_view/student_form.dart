@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/checkbox_p.dart';
 import 'package:halaqat/presentation/widgets/promo_view/form_date_field.dart';
 import 'package:halaqat/presentation/widgets/promo_view/form_phone_field.dart';
 import 'package:halaqat/presentation/widgets/promo_view/form_text_field.dart';
 import 'package:halaqat/util/constants/colors.dart';
+import 'package:provider/provider.dart';
 
 class StudentForm extends StatefulWidget {
   final double height;
@@ -15,6 +17,40 @@ class StudentForm extends StatefulWidget {
 }
 
 class _StudentFormState extends State<StudentForm> {
+  late final TextEditingController fn;
+  late final TextEditingController ln;
+  late final TextEditingController year;
+  late final TextEditingController dob;
+  late final TextEditingController pob;
+  late final TextEditingController address;
+  late final TextEditingController parentName;
+  late final TextEditingController parentPhoneNumber;
+  @override
+  void initState() {
+    fn = TextEditingController();
+    ln = TextEditingController();
+    year = TextEditingController();
+    dob = TextEditingController();
+    pob = TextEditingController();
+    address = TextEditingController();
+    parentName = TextEditingController();
+    parentPhoneNumber = TextEditingController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    ln.dispose();
+    fn.dispose();
+    year.dispose();
+    dob.dispose();
+    pob.dispose();
+    address.dispose();
+    parentName.dispose();
+    parentPhoneNumber.dispose();
+    
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,10 +69,14 @@ class _StudentFormState extends State<StudentForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 FormTextField(
+                  tag: "fn",
+                  controller: fn,
                   maxWidth: 150,
                   label: "First name",
                 ),
                 FormTextField(
+                  tag: "ln",
+                  controller: ln,
                   maxWidth: 150,
                   label: "Last name",
                 ),
@@ -44,22 +84,28 @@ class _StudentFormState extends State<StudentForm> {
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
             FormTextField(
+              tag: "year",
+              controller: year,
               maxWidth: 312.6,
               label: "Year",
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
             FormDateField(
                 label: "Date of birth",
-                controller: TextEditingController(),
+                controller: dob,
                 width: 312.6,
                 height: 50),
             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
             FormTextField(
+              tag: "pob",
+              controller: pob,
               maxWidth: 312.6,
               label: "Place of birth",
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
             FormTextField(
+              tag: "address",
+              controller: address,
               maxWidth: 312.6,
               label: "Address",
             ),
@@ -68,13 +114,13 @@ class _StudentFormState extends State<StudentForm> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 FormTextField(
+                  tag: "parentName",
+                  controller: parentName,
                   maxWidth: 100,
                   label: "Parent name",
                 ),
                 FormPhoneField(
-                    width: 200,
-                    label: "Phone Number",
-                    phone: TextEditingController())
+                    width: 200, label: "Phone Number", phone: parentPhoneNumber)
               ],
             ),
             CheckboxP(label: 'Has Payed'),
@@ -83,7 +129,9 @@ class _StudentFormState extends State<StudentForm> {
               child: Container(
                   margin: EdgeInsets.only(right: 10),
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print(context.read<StudentFormState>().union());
+                      },
                       child: Text(
                         "Submit",
                         style: TextStyle(color: mainColor2),

@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/field_decoration.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class FormTextField extends TextField {
+class FormTextField extends StatefulWidget {
   final double maxWidth;
   double? maxHeight = 50;
   EdgeInsets? margin;
   final String label;
+  final TextEditingController controller;
+  final String tag;
   FormTextField({
     super.key,
     this.margin,
     required this.maxWidth,
     this.maxHeight,
     required this.label,
+    required this.controller,
+    required this.tag,
   });
 
   @override
@@ -25,11 +31,16 @@ class _FormTextFieldState extends State<FormTextField> {
     return Container(
       margin: widget.margin,
       child: TextField(
+          onChanged: (value) {
+            context
+                .read<StudentFormState>()
+                .getInfoFromField(widget.tag, value);
+          },
           decoration: customInputDecoration(
-        label: widget.label,
-        c: BoxConstraints(
-            maxHeight: widget.maxHeight ?? 50, maxWidth: widget.maxWidth),
-      )),
+            label: widget.label,
+            c: BoxConstraints(
+                maxHeight: widget.maxHeight ?? 50, maxWidth: widget.maxWidth),
+          )),
     );
   }
 }
