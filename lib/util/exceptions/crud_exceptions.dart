@@ -12,4 +12,4 @@ class PromoAlreadyExistsException implements Exception{}
 
 class PromoDoesntExistsException implements Exception{}
 
-
+class StudentAlreadyExistsException implements Exception{}

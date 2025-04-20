@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:halaqat/main.dart';
 import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/field_decoration.dart';
 import 'package:halaqat/util/constants/colors.dart';

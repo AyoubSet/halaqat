@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:halaqat/data/data_source/promos_service.dart';
+import 'package:halaqat/data/data_source/student_service.dart';
 import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/checkbox_p.dart';
 import 'package:halaqat/presentation/widgets/promo_view/form_date_field.dart';
@@ -29,7 +31,6 @@ class _StudentFormState extends State<StudentForm> {
   late final TextEditingController parentName;
   late final TextEditingController parentPhoneNumber;
 
-
   @override
   void initState() {
     fn = TextEditingController();
@@ -59,6 +60,8 @@ class _StudentFormState extends State<StudentForm> {
 
   @override
   Widget build(BuildContext context) {
+    final studentService = StudentService();
+    final promoService = PromoService();
     return Container(
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.75),
@@ -146,6 +149,9 @@ class _StudentFormState extends State<StudentForm> {
                           final student =
                               context.read<StudentFormState>().union();
                           context.read<StudentFormState>().reset();
+                          studentService.createStudent(
+                              student: student,
+                              promoId: promoService.currentPromo!.id);
                           Navigator.of(context)
                               .pushNamedAndRemoveUntil(promo, (route) => false);
                         } on FormatException {

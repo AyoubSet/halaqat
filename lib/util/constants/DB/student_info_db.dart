@@ -12,7 +12,7 @@ abstract class StudentInfoDb implements DB {
   static const addressColumm = "Address";
   static const parentnameColumm = "Parent_Name";
   static const parentphonenumberColumm = "Parent_Phone_Number";
-  static const payementColumm = "Payement";
+  static const payementColumm = "Payment";
 
   static const studentTable = """
     CREATE TABLE IF NOT EXISTS "Student" (
