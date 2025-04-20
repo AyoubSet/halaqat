@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/business/entity/student_info.dart';
-import 'package:halaqat/util/constants/DB/student_info_db.dart';
 
 class StudentFormState extends ChangeNotifier {
   String firstName = "";
@@ -67,7 +66,8 @@ class StudentFormState extends ChangeNotifier {
     address = "";
     parentName = "";
     parentPhoneNumber = "";
-    hasPayed;
+    hasPayed = false;
+    notifyListeners();
   }
 
   void getInfoFromField(String tag, String value) {

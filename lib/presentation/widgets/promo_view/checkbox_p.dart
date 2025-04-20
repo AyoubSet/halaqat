@@ -13,6 +13,7 @@ class CheckboxP extends StatefulWidget {
 
 class _CheckboxPState extends State<CheckboxP> {
   bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return Row(

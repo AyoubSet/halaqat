@@ -9,6 +9,7 @@ InputDecoration customInputDecoration({
   return InputDecoration(
     // filled: true,
     // fillColor: Colors.white.withOpacity(0.75),
+    hintText: hint,
     labelText: label,
     border: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.black, width: 2),
@@ -20,6 +21,6 @@ InputDecoration customInputDecoration({
     ),
     labelStyle: TextStyle(color: mainColor2,),
     contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-    constraints: c
+    constraints: c,
   );
 }

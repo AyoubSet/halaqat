@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:halaqat/main.dart';
 import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/field_decoration.dart';
+import 'package:halaqat/util/constants/colors.dart';
 import 'package:halaqat/util/show_a_dialog.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -53,7 +54,9 @@ class _FormDateFieldState extends State<FormDateField> {
           }
         },
         inputFormatters: [mask],
+        cursorColor: mainColor2,
         decoration: customInputDecoration(
+          hint: "YYYY-MM-DD",
           label: widget.label,
           c: BoxConstraints(
               maxHeight: widget.height ?? 50, maxWidth: widget.width),

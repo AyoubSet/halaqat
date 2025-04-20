@@ -1,0 +1,1 @@
+class NotNamedStudentException implements Exception{}

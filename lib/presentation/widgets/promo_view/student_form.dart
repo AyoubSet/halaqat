@@ -5,6 +5,9 @@ import 'package:halaqat/presentation/widgets/promo_view/form_date_field.dart';
 import 'package:halaqat/presentation/widgets/promo_view/form_phone_field.dart';
 import 'package:halaqat/presentation/widgets/promo_view/form_text_field.dart';
 import 'package:halaqat/util/constants/colors.dart';
+import 'package:halaqat/util/constants/routes.dart';
+import 'package:halaqat/util/show_a_dialog.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class StudentForm extends StatefulWidget {
@@ -25,6 +28,8 @@ class _StudentFormState extends State<StudentForm> {
   late final TextEditingController address;
   late final TextEditingController parentName;
   late final TextEditingController parentPhoneNumber;
+
+
   @override
   void initState() {
     fn = TextEditingController();
@@ -37,6 +42,7 @@ class _StudentFormState extends State<StudentForm> {
     parentPhoneNumber = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     ln.dispose();
@@ -47,7 +53,7 @@ class _StudentFormState extends State<StudentForm> {
     address.dispose();
     parentName.dispose();
     parentPhoneNumber.dispose();
-    
+
     super.dispose();
   }
 
@@ -130,7 +136,42 @@ class _StudentFormState extends State<StudentForm> {
                   margin: EdgeInsets.only(right: 10),
                   child: TextButton(
                       onPressed: () {
-                        print(context.read<StudentFormState>().union());
+                        try {
+                          if (fn.text.isEmpty || ln.text.isEmpty) {
+                            throw Exception();
+                          }
+                          if (dob.text.isNotEmpty) {
+                            DateFormat().parseStrict(dob.text);
+                          }
+                          final student =
+                              context.read<StudentFormState>().union();
+                          context.read<StudentFormState>().reset();
+                          Navigator.of(context)
+                              .pushNamedAndRemoveUntil(promo, (route) => false);
+                        } on FormatException {
+                          showADialog(context,
+                              title: "Malformated date",
+                              content:
+                                  "Please verify the format of the date of birth",
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Ok"))
+                              ]);
+                        } on Exception {
+                          showADialog(context,
+                              title: "Not named student",
+                              content: "One of the name fields are empty",
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("Ok"))
+                              ]);
+                        }
                       },
                       child: Text(
                         "Submit",

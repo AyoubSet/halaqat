@@ -29,9 +29,7 @@ class _PromoSelectionViewState1 extends State<PromoSelectionView1> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Stack(
           children: [
-            //* Bg Pattern
             const Bg(),
-            //* The Selection Logic (Display Halaqat/Indicating messages)
             FutureBuilder(
               future: _promoService.getAllPromos(),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {

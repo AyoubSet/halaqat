@@ -12,28 +12,31 @@ class StudentPage extends StatefulWidget {
 class _StudentPageState extends State<StudentPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.all(15),
-        height: MediaQuery.of(context).size.height * 0.82,
-        width: MediaQuery.of(context).size.width * 0.9,
-        child: Center(
-            child: Stack(children: [
-          Center(
-              child: Text(
-            "No Student Found",
-            style: TextStyle(color: Colors.white),
-          )),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: SquareIconedButton(
-              margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              message: "Add Student",
-              onPress: () => pushForm(context),
-              child: Icon(Icons.add),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Center(
+        child: Container(
+          margin: EdgeInsets.all(15),
+          height: MediaQuery.of(context).size.height * 0.82,
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Center(
+              child: Stack(children: [
+            Center(
+                child: Text(
+              "No Student Found",
+              style: TextStyle(color: Colors.white),
+            )),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: SquareIconedButton(
+                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                message: "Add Student",
+                onPress: () => pushForm(context),
+                child: Icon(Icons.add),
+              ),
             ),
-          ),
-        ])),
+          ])),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:halaqat/presentation/state/student_form_state.dart';
 import 'package:halaqat/presentation/widgets/promo_view/field_decoration.dart';
+import 'package:halaqat/util/constants/colors.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -36,6 +37,8 @@ class _FormTextFieldState extends State<FormTextField> {
                 .read<StudentFormState>()
                 .getInfoFromField(widget.tag, value);
           },
+          cursorColor: mainColor2,
+          controller: widget.controller,
           decoration: customInputDecoration(
             label: widget.label,
             c: BoxConstraints(
