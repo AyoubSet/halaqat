@@ -4,7 +4,7 @@ import 'package:halaqat/presentation/widgets/promo_selection/functions/add_promo
 import 'package:halaqat/util/widgets/square_iconed_button.dart';
 import 'package:halaqat/presentation/widgets/promo_selection/list_tile_of_promo.dart';
 
-
+//FIXME: Transform to a class
 Widget activeStatusGenerator({
   required AsyncSnapshot snapshot,
   required double screenHeight,

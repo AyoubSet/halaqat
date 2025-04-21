@@ -19,18 +19,16 @@ class ListTileOfPromo extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  State<ListTileOfPromo> createState() => _ListTileOfPromoState(title: title);
+  State<ListTileOfPromo> createState() => _ListTileOfPromoState();
 }
 
 class _ListTileOfPromoState extends State<ListTileOfPromo> {
-  final String title;
-  _ListTileOfPromoState({required this.title});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
         PromoService().currentPromo =
-            await PromoService().getPromoByName(name: title);
+            await PromoService().getPromoByName(name: widget.title);
         await SharedPrefsService()
             .saveSelectedPromo(PromoService().currentPromo!.id);
         Future.delayed(Duration(microseconds: 10));

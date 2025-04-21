@@ -43,7 +43,7 @@ class PromoService {
       throw CouldNotDeletePromoException();
     } else {
       final countBefore = _promos.length;
-      _promos.removeWhere((note) => note.id == id);
+      _promos.removeWhere((promo) => promo.id == id);
       if (_promos.length != countBefore) {
         _promosStreamController.add(_promos);
       }
@@ -125,7 +125,7 @@ class PromoService {
       throw PromoDoesntExistsException();
     } else {
       final updatedPromo = DataBasePromo.fromRow(results.first);
-      _promos.removeWhere((note) => note.id == updatedPromo.id);
+      _promos.removeWhere((promo) => promo.id == updatedPromo.id);
       _promos.add(updatedPromo);
       _promosStreamController.add(_promos);
       return updatedPromo;

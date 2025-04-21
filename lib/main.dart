@@ -12,7 +12,7 @@ import 'package:halaqat/util/constants/routes.dart';
 import 'package:provider/provider.dart';
 
 //TODO : Student Service
-
+//TODO : Fix the architechture
 //TODO : Displaying StudPents
 
 

@@ -1,7 +1,6 @@
 // ignore_for_file: unused_field
 
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:halaqat/business/entity/student_info.dart';
 import 'package:halaqat/data/models/student_info_db.dart';
 import 'package:halaqat/util/constants/DB/db_helper.dart';
@@ -85,5 +84,53 @@ class StudentService {
     _students
         .addAll(results.map((row) => DataBaseStudentInformation.fromRow(row)));
     _studentStreamController.add(_students);
+  }
+
+  Future<void> deleteStudent(
+      {required String fn, required String ln, required int promoId}) async {
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
+    final studentId = await _getIdFromName(fn, ln);
+    final deleteCount = await db.delete(StudentInfoDb.studentTableName,
+        where:
+            "${StudentInfoDb.idColumm} = ? AND ${StudentInfoDb.promoIDColumm} = ?",
+        whereArgs: [studentId, promoId]);
+    if (deleteCount == 0) {
+      throw CouldNotDeleteStudentException();
+    } else {
+      final countBefore = _students.length;
+      _students.removeWhere((student) => studentId == student.id);
+      if(countBefore != _students.length){
+        _studentStreamController.add(_students);
+      }
+    }
+  }
+
+  Future<DataBaseStudentInformation> getStudentById({required int id}) async {
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
+    final results = await db.query(StudentInfoDb.studentTableName,
+        where: "${StudentInfoDb.idColumm} = ?", whereArgs: [id]);
+    if (results.isEmpty) {
+      throw StudentDoesntExistsException();
+    } else{
+      final updatedStudent = DataBaseStudentInformation.fromRow(results.first);
+      _students.removeWhere((student) => student.id == updatedStudent.id);
+      _students.add(updatedStudent);
+      _studentStreamController.add(_students);
+      return updatedStudent;
+    }
+  }
+
+  Future<int> _getIdFromName(String fn, String ln) async {
+    await Dbhelper().ensureDbIsOpen();
+    final db = Dbhelper().getDatabaseOrThrow();
+    final results = await db.query(StudentInfoDb.studentTableName,
+        limit: 1,
+        where:
+            "${StudentInfoDb.fnColumm} = ? AND ${StudentInfoDb.lnColumm} = ?",
+        whereArgs: [fn, ln]);
+    if (results.isEmpty) throw StudentDoesntExistsException();
+    return results.first[StudentInfoDb.idColumm] as int;
   }
 }
